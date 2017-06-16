@@ -8,7 +8,7 @@ services:
     volumes:
         - ./../.:/src
         - ./php/nginxConf/dev.conf:/etc/nginx/conf.d/site.conf
-        - ./../appService/var/jwt:/src/appService/var/jwt
+        - ./../app/var/jwt:/src/app/var/jwt
         - ./var/log/RunProgrammation:/var/log/RunProgrammation
         - /dev/log:/dev/log
     links:
@@ -17,7 +17,7 @@ services:
   ssl:
     build: ssl
     volumes:
-        - ./../appService/var/jwt:/src/appService/var/jwt
+        - ./../app/var/jwt:/src/app/var/jwt
 
   node:
     volumes:
@@ -47,10 +47,10 @@ services:
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=b1otope
+      - MYSQL_ROOT_PASSWORD=inReusableCodeWeTrust
       - MYSQL_DATABASE=symfony
-      - MYSQL_USER=ed
-      - MYSQL_PASSWORD=b1otope
+      - MYSQL_USER=simplon
+      - MYSQL_PASSWORD=inCodeWeTrust
       - TERM=dumb
     volumes:
       - ./db:/etc/mysql/conf.d
