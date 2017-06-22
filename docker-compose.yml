@@ -11,6 +11,8 @@ services:
         - ./../app/var/jwt:/src/app/var/jwt
         - ./var/log/RunProgrammation:/var/log/RunProgrammation
         - /dev/log:/dev/log
+    environment:
+        - ENV="${ENV}"
     links:
         - db
         - rabbit

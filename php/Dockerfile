@@ -87,6 +87,8 @@ RUN cd php-7.1.5 && ./buildconf --force && ./configure --prefix=/usr/local/php7 
       --with-recode=/usr \
       --with-ldap \
       --with-xdebug \
+      --with-libxml-dir=/usr \
+      --with-xmlrpc \
       && make clean \
       && make -j `cat /proc/cpuinfo | grep processor | wc -l` \
       && make install 
