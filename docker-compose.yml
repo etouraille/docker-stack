@@ -16,6 +16,11 @@ services:
     links:
         - db
         - rabbit
+        - memcache
+  memcache:
+      build: memcache
+      ports:
+        - "11211:11211"
   ssl:
     build: ssl
     volumes:

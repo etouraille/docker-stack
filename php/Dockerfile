@@ -93,15 +93,49 @@ RUN cd php-7.1.5 && ./buildconf --force && ./configure --prefix=/usr/local/php7 
       && make -j `cat /proc/cpuinfo | grep processor | wc -l` \
       && make install 
 
+#
 #binary
 
 RUN ln -s /usr/local/php7/bin/php /usr/bin/php
+RUN ln -s /usr/local/php7/bin/phpize /usr/bin/phpize
 RUN ln -s /usr/local/php7/sbin/php-fpm /usr/sbin/php-fpm
+RUN ln -s /usr/local/php7/bin/php-config /usr/bin/php-config
+
+#memcached
+RUN apt-get -qq update && apt-get -qq install -y  --no-install-recommends \
+      memcached \
+      sed \
+      libmemcached-dev \
+      openssl \
+      ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+#apt-transport
+
+
+
+RUN sed -i 's/m 64/m 128/g' /etc/memcached.conf
+
+RUN git clone https://github.com/php-memcached-dev/php-memcached.git && \
+      cd php-memcached && \
+      git checkout php7 \
+      && phpize \
+      &&./configure \
+      --enable-memcache \ 
+      --enable-debug \
+      --with-php-config=/usr/bin/phpize \
+      --with-php-config=/usr/bin/php-config \
+      --disable-docs \
+      --enable-64bit \
+      --disable-memcached-sasl \
+      && make \
+      && make install
 
 #unix socket
 
 RUN touch /var/run/php7-fpm.sock
-RUN chmod 660 /var/run/php7-fpm.sock
+RUN chmod 770 /var/run/php7-fpm.sock
+RUN chown www-data:www-data /var/run/php7-fpm.sock
 
 #wrights.
 RUN usermod -u 500 www-data
@@ -124,7 +158,7 @@ RUN mv composer.phar /usr/bin/composer && chmod +x /usr/bin/composer
 WORKDIR /src/
 
 # Install Nginx.
-RUN apt-get install -y software-properties-common 
+RUN apt-get update && apt-get install -y software-properties-common 
 RUN \
   add-apt-repository -y ppa:nginx/stable && \
   apt-get update && \
@@ -154,7 +188,7 @@ RUN chmod +x /etc/sv/nginx/run
 RUN ln -s /etc/sv/nginx /etc/service/nginx
 
 #TODO relocalize
-RUN chown www-data:www-data /var/run/php7-fpm.sock
+
 
 #config files
 
@@ -175,6 +209,10 @@ ADD ini/php.ini /usr/local/etc/php.ini
 #RUN chmod +x /etc/sv/cron/run
 #RUN ln -s /etc/sv/cron /etc/service/cron
 
+#create socket unix
+ADD create-socket.c /create-socket.c
+RUN gcc -o /create-socket /create-socket.c
+RUN /create-socket "/var/run/php7-fpm.sock"
 
 #launch command
 
