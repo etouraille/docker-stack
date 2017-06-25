@@ -121,7 +121,7 @@ RUN git clone https://github.com/php-memcached-dev/php-memcached.git && \
       git checkout php7 \
       && phpize \
       &&./configure \
-      --enable-memcache \ 
+      --enable-memcached \
       --enable-debug \
       --with-php-config=/usr/bin/phpize \
       --with-php-config=/usr/bin/php-config \
