@@ -5,6 +5,7 @@ RUN apt-get -qq update && apt-get -qq install -y  --no-install-recommends \
       curl \
       vim \
       build-essential \
+      libfontconfig1 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN curl -skL https://deb.nodesource.com/setup_7.x -o script.sh
