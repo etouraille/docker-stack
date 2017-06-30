@@ -7,7 +7,7 @@ services:
         - "443:443"
     volumes:
         - ./../.:/src
-        - ./php/nginxConf/dev.conf:/etc/nginx/conf.d/site.conf
+        - ./php/nginxConf/:/etc/nginx/conf.d/
         - ./../app/var/jwt:/src/app/var/jwt
         - ./var/log/RunProgrammation:/var/log/RunProgrammation
         - /dev/log:/dev/log
