@@ -12,7 +12,7 @@ services:
         - ./var/log/RunProgrammation:/var/log/RunProgrammation
         - /dev/log:/dev/log
     environment:
-        - ENV="${ENV}"
+        - ENV=$ENV
     links:
         - db
         - rabbit
