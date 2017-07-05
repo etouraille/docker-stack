@@ -11,6 +11,7 @@ services:
         - ./../app/var/jwt:/src/app/var/jwt
         - ./var/log/RunProgrammation:/var/log/RunProgrammation
         - /dev/log:/dev/log
+        - /etc/letsencrypt:/etc/letsencrypt
     environment:
         - ENV=$ENV
     links:
@@ -77,3 +78,9 @@ services:
       - MYSQL_PASSWORD=inReusableCodeWeTrust
     links:
       - db:db
+
+  certbot:
+    build: certbot
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+      - ./../.:/src
