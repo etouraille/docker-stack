@@ -180,6 +180,9 @@ WORKDIR /src
 EXPOSE 80
 EXPOSE 443
 
+# remove nginx.conf
+RUN rm /etc/nginx/nginx.conf
+
 #service
 
 RUN mkdir -p /etc/sv/nginx

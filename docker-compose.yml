@@ -12,7 +12,7 @@ services:
         - ./var/log/RunProgrammation:/var/log/RunProgrammation
         - /dev/log:/dev/log
         - /etc/letsencrypt:/etc/letsencrypt
-        - ./php/nginxEnabled:/etc/nginx/sites-enabled
+        - ./php/nginxDefault/nginx.conf:/etc/nginx/nginx.conf
     environment:
         - ENV=${ENV}
     links:
