@@ -14,7 +14,7 @@ services:
         - /etc/letsencrypt:/etc/letsencrypt
         - ./php/nginxEnabled:/etc/nginx/sites-enabled
     environment:
-        - ENV=$ENV
+        - ENV=${ENV}
     links:
         - db
         - rabbit
