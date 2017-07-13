@@ -217,6 +217,9 @@ ADD create-socket.c /create-socket.c
 RUN gcc -o /create-socket /create-socket.c
 RUN /create-socket "/var/run/php7-fpm.sock"
 
+#add at command
+RUN apt-get update && apt-get install at
+
 #launch command
 
 CMD ["/usr/bin/runsvdir","-P", "/etc/service"]
