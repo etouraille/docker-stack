@@ -220,6 +220,11 @@ RUN /create-socket "/var/run/php7-fpm.sock"
 #add at command
 RUN apt-get update && apt-get install at
 
+#php unit
+RUN wget https://phar.phpunit.de/phpunit.phar
+RUN chmod +x phpunit.phar
+RUN mv phpunit.phar /usr/local/bin/phpunit
+
 #launch command
 
 CMD ["/usr/bin/runsvdir","-P", "/etc/service"]
