@@ -57,10 +57,10 @@ services:
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=inReusableCodeWeTrust
+      - MYSQL_ROOT_PASSWORD=e8eb7d4ff60
       - MYSQL_DATABASE=symfony
-      - MYSQL_USER=simplon
-      - MYSQL_PASSWORD=inCodeWeTrust
+      - MYSQL_USER=bg
+      - MYSQL_PASSWORD=7sp4823c232
       - TERM=dumb
     volumes:
       - ./db:/etc/mysql/conf.d
