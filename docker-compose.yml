@@ -44,7 +44,7 @@ services:
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=failleDeSecurité
+      - MYSQL_ROOT_PASSWORD=failleDeSecuritet
       - MYSQL_DATABASE=symfony
       - MYSQL_USER=bg
       - MYSQL_PASSWORD=unusefullPassword
@@ -60,4 +60,4 @@ services:
     build: certbot
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
-      - ./../.:/src
+      - ./../.:/services
