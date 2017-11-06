@@ -93,7 +93,6 @@ RUN cd php-7.1.5 && ./buildconf --force && ./configure --prefix=/usr/local/php7 
       && make -j `cat /proc/cpuinfo | grep processor | wc -l` \
       && make install 
 
-#
 #binary
 
 RUN ln -s /usr/local/php7/bin/php /usr/bin/php
@@ -111,25 +110,6 @@ RUN apt-get -qq update && apt-get -qq install -y  --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 #apt-transport
-
-
-
-RUN sed -i 's/m 64/m 128/g' /etc/memcached.conf
-
-RUN git clone https://github.com/php-memcached-dev/php-memcached.git && \
-      cd php-memcached && \
-      git checkout php7 \
-      && phpize \
-      &&./configure \
-      --enable-memcached \
-      --enable-debug \
-      --with-php-config=/usr/bin/phpize \
-      --with-php-config=/usr/bin/php-config \
-      --disable-docs \
-      --enable-64bit \
-      --disable-memcached-sasl \
-      && make \
-      && make install
 
 #unix socket
 
@@ -211,11 +191,6 @@ ADD ini/php.ini /usr/local/etc/php.ini
 #ADD run/cron /etc/sv/cron/run
 #RUN chmod +x /etc/sv/cron/run
 #RUN ln -s /etc/sv/cron /etc/service/cron
-
-#create socket unix
-ADD create-socket.c /create-socket.c
-RUN gcc -o /create-socket /create-socket.c
-RUN /create-socket "/var/run/php7-fpm.sock"
 
 #add at command
 RUN apt-get update && apt-get install at
