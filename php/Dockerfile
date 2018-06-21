@@ -1,6 +1,8 @@
 FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND noninteractive
+ENV TZ=Europe/Paris
+
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
       autoconf \
@@ -224,6 +226,9 @@ RUN apt-get update && apt-get install at
 RUN wget https://phar.phpunit.de/phpunit.phar
 RUN chmod +x phpunit.phar
 RUN mv phpunit.phar /usr/local/bin/phpunit
+
+#timezone
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 #launch command
 
